@@ -7,7 +7,8 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import { validateCommentForm } from "../../utils/validateCommentForm";
 
 const CommentForm = ({ campsiteId }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -39,6 +40,7 @@ const CommentForm = ({ campsiteId }) => {
               commentText: "",
             }}
             onSubmit={handleSubmit}
+            validate={validateCommentForm}
           >
             <Form>
               <FormGroup>
@@ -51,6 +53,9 @@ const CommentForm = ({ campsiteId }) => {
                   <option>4</option>
                   <option>5</option>
                 </Field>
+                <ErrorMessage name="rating">
+                  {(msg) => <p className="text-danger">{msg}</p>}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="author">Your Name</Label>
@@ -59,6 +64,9 @@ const CommentForm = ({ campsiteId }) => {
                   placeholder="Your Name"
                   className="form-control"
                 />
+                <ErrorMessage name="author">
+                  {(msg) => <p className="text-danger">{msg}</p>}
+                </ErrorMessage>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="commentText">Comment</Label>
