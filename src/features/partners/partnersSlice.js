@@ -28,7 +28,7 @@ const partnersSlice = createSlice({
   extraReducers: {
     [fetchPartners.pending]: (state) => {
       state.isLoading = true;
-  },
+    },
     [fetchPartners.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.errMsg = "";
@@ -48,5 +48,11 @@ export const selectAllPartners = (state) => {
 };
 
 export const selectedFeaturedPartner = (state) => {
-  return state.partners.partnersArray.find((partner) => partner.featured);
+  return {
+    featuredItem: state.partners.partnersArray.find(
+      (partner) => partner.featured
+    ),
+    isLoading: state.partners.isLoading,
+    errMsg: state.partners.errMsg,
+  };
 };
